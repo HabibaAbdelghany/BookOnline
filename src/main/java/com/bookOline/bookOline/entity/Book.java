@@ -11,8 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Setter
-@Getter
+
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
