@@ -1,9 +1,7 @@
 package com.bookOline.bookOline.services;
 
-import com.bookOline.bookOline.ENTITY.Book;
-import com.bookOline.bookOline.ENTITY.Customer;
-import com.bookOline.bookOline.Repository.BookRepo;
-import com.bookOline.bookOline.Repository.CustomerRepo;
+import com.bookOline.bookOline.entity.Customer;
+import com.bookOline.bookOline.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +10,8 @@ import java.util.List;
 
 public class CustomerService {
     @Autowired
-    private CustomerRepo customerRepo;
+    private CustomerRepository customerRepository;
    public List<Customer>findAllCustometrs(){
-       return customerRepo.findAll();
+       return customerRepository.findAll();
    }
 }

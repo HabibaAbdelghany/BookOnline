@@ -1,8 +1,6 @@
 package com.bookOline.bookOline.controller;
 
-import com.bookOline.bookOline.ENTITY.Category;
-import com.bookOline.bookOline.ENTITY.Customer;
-import com.bookOline.bookOline.services.CategoryService;
+import com.bookOline.bookOline.entity.Customer;
 import com.bookOline.bookOline.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

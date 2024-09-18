@@ -1,4 +1,4 @@
-package com.bookOline.bookOline.ENTITY;
+package com.bookOline.bookOline.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

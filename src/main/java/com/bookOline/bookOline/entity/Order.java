@@ -1,11 +1,9 @@
-package com.bookOline.bookOline.ENTITY;
+package com.bookOline.bookOline.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.security.PrivateKey;
 import java.util.Date;
-import java.util.IdentityHashMap;
 import java.util.List;
 
 @Data

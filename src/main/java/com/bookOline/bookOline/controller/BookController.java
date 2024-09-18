@@ -1,6 +1,6 @@
 package com.bookOline.bookOline.controller;
 
-import com.bookOline.bookOline.ENTITY.Book;
+import com.bookOline.bookOline.entity.Book;
 import com.bookOline.bookOline.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,6 @@ import java.util.List;
 public class BookController {
     @Autowired
     private BookService bookService;
-
     @GetMapping("/allbooks")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();

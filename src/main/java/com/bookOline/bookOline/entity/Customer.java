@@ -1,10 +1,8 @@
-package com.bookOline.bookOline.ENTITY;
+package com.bookOline.bookOline.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Component;
 
-import java.sql.ClientInfoStatus;
 import java.util.List;
 
 @Setter
