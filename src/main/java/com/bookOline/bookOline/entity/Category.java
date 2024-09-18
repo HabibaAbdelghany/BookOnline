@@ -10,8 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Setter
-@Getter
+
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
