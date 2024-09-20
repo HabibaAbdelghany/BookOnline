@@ -22,10 +22,11 @@ public class Book {
     private  String title;
 
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", cascade = CascadeType.ALL)
     private List<Order> orders;
 
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(mappedBy = "books", cascade = CascadeType.ALL)
+
     private Set<Category> categories;
 
 
