@@ -11,15 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "book_order")
 public class BookOrder {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id ;
+    @EmbeddedId
+    private BookOrderId id;
     @ManyToOne
+    @MapsId("bookId")
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
     @ManyToOne
+    @MapsId("orderId")
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 }

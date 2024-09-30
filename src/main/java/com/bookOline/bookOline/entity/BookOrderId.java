@@ -28,5 +28,3 @@ public class BookOrderId  implements Serializable {
         return Objects.hash(getBookId(), getOrderId());
     }
 }
-
-
