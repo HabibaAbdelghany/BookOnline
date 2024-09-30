@@ -3,6 +3,7 @@ package com.bookOline.bookOline.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,10 +23,12 @@ public class Book {
     private  String title;
 
 
-    @ManyToMany(mappedBy = "books", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 
-    @ManyToMany(mappedBy = "books", cascade = CascadeType.ALL)
+
+    private Set<BookOrder> bookOrders = new HashSet<>();
+
+    @ManyToMany(mappedBy = "books", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 
     private Set<Category> categories;
 

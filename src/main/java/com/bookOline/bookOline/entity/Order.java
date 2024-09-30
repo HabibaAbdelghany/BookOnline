@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -27,14 +29,9 @@ public class Order{
 
 
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<BookOrder> bookOrders = new HashSet<>();
 
-@ManyToMany
-    @JoinTable(
-            name = "order_book",
-            joinColumns = @JoinColumn(name="order_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
-    )
- private List<Book>books;
 
 
 

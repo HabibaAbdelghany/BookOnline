@@ -33,10 +33,7 @@ public class BookService {
   public void deleteBookById (Integer id){
         Optional<Book>bookOptional=bookRepository.findById(id);
         if (bookOptional.isPresent()){
-//        List<Order> orders = orderRepository.findAll();
-//        for (Order order:orders){
-//             order.getBooks().removeIf(book -> book.getId().equals(id));
-//        }
+      Book book = bookOptional.get();
 
             bookRepository.deleteById(id);
     }else{
@@ -44,24 +41,6 @@ public class BookService {
         }
 
   }
-//
-//    public void deleteBookById(Integer id) {
-//        // Fetch all orders related to the book
-//        List<Order> orders = orderRepository.findByBooksId(id);
-//
-//        // Delete each order
-//        for (Order order : orders) {
-//            orderRepository.delete(order);
-//        }
-//
-//        // Now delete the book
-//        bookRepository.deleteById(id);
-//    }
-//
-//
-//
-//
-//
 
 
 
@@ -78,17 +57,6 @@ public class BookService {
 
 
 
-    // Update a book
-//    public Book updateBook(Integer id, Book bookDetails) {
-//        Book existingBook = bookRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Book not found with id: " + id));
-//        existingBook.setTitle(bookDetails.getTitle());
-//        existingBook.setAuthor(bookDetails.getAuthor());
-//        existingBook.setPrice(bookDetails.getPrice());
-//        // Set other fields as needed
-//
-//        return bookRepository.save(existingBook);
-//    }
 }
 
 
