@@ -16,6 +16,7 @@ import java.util.Optional;
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
     BookOrderRepository bookOrderRepository;
 
 
@@ -34,8 +35,7 @@ public class BookService {
     }
     @Transactional
   public void deleteBookById (Integer id){
-    bookOrderRepository.deleteById(id);
-    // Now delete the book itself
+    bookOrderRepository.deleteByBookId(id);
     bookRepository.deleteById(id);
 }
 }
