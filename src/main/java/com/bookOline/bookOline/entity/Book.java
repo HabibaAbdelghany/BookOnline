@@ -1,5 +1,6 @@
 package com.bookOline.bookOline.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,15 +24,15 @@ public class Book {
     private  String title;
 
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
 
+    @ManyToMany(mappedBy = "books", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties("books")
+    private Set<Order> orders = new HashSet<>();
 
-    private Set<BookOrder> bookOrders = new HashSet<>();
 
     @ManyToMany(mappedBy = "books", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 
     private Set<Category> categories;
-
 
 }
 

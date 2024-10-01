@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
+
 import java.util.Set;
 
 @Data
@@ -29,11 +29,13 @@ public class Order{
 
 
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<BookOrder> bookOrders = new HashSet<>();
-
-
-
+    @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "book_order", // The join table
+            joinColumns = @JoinColumn(name = "order_id"), // Foreign key for Order
+            inverseJoinColumns = @JoinColumn(name = "book_id") // Foreign key for Book
+    )
+    private Set<Book> books = new HashSet<>();
 
 }
 

@@ -1,9 +1,11 @@
 package com.bookOline.bookOline.services;
 
 import com.bookOline.bookOline.entity.Book;
-import com.bookOline.bookOline.entity.Order;
+import com.bookOline.bookOline.entity.Customer;
+import com.bookOline.bookOline.repository.BookOrderRepository;
 import com.bookOline.bookOline.repository.BookRepository;
-import com.bookOline.bookOline.repository.OrderRepository;
+
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,8 @@ import java.util.Optional;
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
-    private OrderRepository orderRepository;
+    BookOrderRepository bookOrderRepository;
+
 
     public List<Book> getAllBooks(){
         return bookRepository.findAll();
@@ -29,41 +32,13 @@ public class BookService {
     public Book createBook (Book book){
         return bookRepository.save(book);
     }
-
+    @Transactional
   public void deleteBookById (Integer id){
-        Optional<Book>bookOptional=bookRepository.findById(id);
-        if (bookOptional.isPresent()){
-      Book book = bookOptional.get();
-
-            bookRepository.deleteById(id);
-    }else{
-            throw new RuntimeException(id +"this id not exist") ;
-        }
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    bookOrderRepository.deleteById(id);
+    // Now delete the book itself
+    bookRepository.deleteById(id);
 }
-
-
-
-
-
-
+}
 
 
 

@@ -28,18 +28,15 @@ public class BookController {
      public  Book createBook(@RequestBody Book book){
         return bookService.createBook(book);
     }
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
     @DeleteMapping("/{id}")
     public String deleteBookById(@PathVariable Integer id) {
         bookService.deleteBookById(id);
         return "Book deleted successfully with id: " + id;
     }
-
-//    // Update a book by its ID
-//    @PutMapping("/{id}")
-//    public Book updateBook(@PathVariable Integer id, @RequestBody Book bookDetails) {
-//        return bookService.updateBook(id, bookDetails);
-//    }
-//
 
 
 

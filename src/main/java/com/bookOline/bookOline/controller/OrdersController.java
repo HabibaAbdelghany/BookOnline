@@ -24,7 +24,8 @@ public class OrdersController {
     public  Order createOrder(@RequestBody Order order){
         return  orderService.createOrder(order);
     }
-@DeleteMapping("/{id}")
+
+    @DeleteMapping("/{id}")
     public String deleteOrderById(@PathVariable Integer id){
         orderService.deleteOrderById(id);
         return (id +"the order is deleted");
