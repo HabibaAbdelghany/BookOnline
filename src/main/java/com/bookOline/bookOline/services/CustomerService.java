@@ -1,9 +1,7 @@
 package com.bookOline.bookOline.services;
 
-import com.bookOline.bookOline.dto.CustomerDTO;
-import com.bookOline.bookOline.entity.Category;
+import com.bookOline.bookOline.dto.UpdateCustomerDto;
 import com.bookOline.bookOline.entity.Customer;
-import com.bookOline.bookOline.entity.Order;
 import com.bookOline.bookOline.mapper.CustomerMapper;
 import com.bookOline.bookOline.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +20,20 @@ public class CustomerService {
    public List<Customer>findAllCustometrs(){
        return customerRepository.findAll();
    }
-    public Customer getCustomerById(Integer id){
+   public Customer getCustomerById(Integer id){
         Optional<Customer>customerOptional=customerRepository.findById(id);{
             return customerOptional .orElse(null);
         }
     }
-
     public  Customer createCustomer (Customer customer){
        return customerRepository.save(customer);
     }
 
-    public CustomerDTO updateCustomer(Integer id,CustomerDTO customerDTO){
-    Customer currentCustomer = customerRepository.findById(id)
+  public UpdateCustomerDto updateCustomer(Integer id, UpdateCustomerDto updateCustomerDTO){
+    Customer currentCustomer = customerRepository.findById (id)
             .orElseThrow(() -> new RuntimeException("Customer not found"));
-
-    customerMapper.updateCustomerFromDto(customerDTO, currentCustomer);
+    customerMapper.updateCustomerFromDto(updateCustomerDTO, currentCustomer);
     customerRepository.save(currentCustomer);
-
     return customerMapper.toDTO(currentCustomer);
 
 }

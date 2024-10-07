@@ -1,12 +1,10 @@
 package com.bookOline.bookOline.controller;
 
-import com.bookOline.bookOline.dto.CustomerDTO;
+import com.bookOline.bookOline.dto.UpdateCustomerDto;
 import com.bookOline.bookOline.entity.Customer;
-import com.bookOline.bookOline.entity.Order;
 import com.bookOline.bookOline.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,18 +35,12 @@ public class CustomerController {
         customerService.deleteCustomerById(id);
         return (id+" customer deleted");
     }
-
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(
-            @PathVariable Integer id,
-            @RequestBody CustomerDTO customerDTO) {
-        try {
-            CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDTO);
-            return ResponseEntity.ok(updatedCustomer);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
+   public String updateCustomer(@PathVariable Integer id,
 
+ @RequestBody UpdateCustomerDto updateCustomerDto) {
+        UpdateCustomerDto updatedCustomer = customerService.updateCustomer( id, updateCustomerDto);
+        return"Customer updated";
+    }
 
 }

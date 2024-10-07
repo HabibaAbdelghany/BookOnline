@@ -1,7 +1,6 @@
 package com.bookOline.bookOline.services;
 
 import com.bookOline.bookOline.entity.Book;
-import com.bookOline.bookOline.entity.Customer;
 import com.bookOline.bookOline.repository.BookOrderRepository;
 import com.bookOline.bookOline.repository.BookRepository;
 
@@ -14,6 +13,7 @@ import java.util.Optional;
 
 @Service
 public class BookService {
+
     @Autowired
     private BookRepository bookRepository;
     @Autowired
@@ -38,6 +38,12 @@ public class BookService {
     bookOrderRepository.deleteByBookId(id);
     bookRepository.deleteById(id);
 }
+//public  void updateBook(Integer id, BookDTO bookDTO){
+//        Book currentBook= bookRepository.findById(id).orElseThrow(()->new RuntimeException("book not Found"));
+//        bookMapper.updateBookFromDto(bookDTO,currentBook);
+//    bookRepository.save(currentBook);
+//
+//}
 }
 
 
