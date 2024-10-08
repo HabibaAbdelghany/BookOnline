@@ -1,5 +1,7 @@
 package com.bookOline.bookOline.controller;
 
+import com.bookOline.bookOline.dto.UpdateBookDTO;
+import com.bookOline.bookOline.dto.UpdateBookOrderDto;
 import com.bookOline.bookOline.entity.Category;
 import com.bookOline.bookOline.entity.Order;
 import com.bookOline.bookOline.services.OrderService;
@@ -31,6 +33,14 @@ public class OrdersController {
         return (id +"the order is deleted");
 }
 
+    @PutMapping("/{id}")
+    public  String updateBookOrder(
+            @PathVariable Integer id ,
+            @RequestBody UpdateBookOrderDto updateBookOrderDto
+            ){
+     orderService.updateBookOrder(id,updateBookOrderDto);
+        return"Order Updated";
+    }
 
 
 }

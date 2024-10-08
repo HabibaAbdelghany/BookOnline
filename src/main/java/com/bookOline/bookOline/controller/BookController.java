@@ -1,5 +1,6 @@
 package com.bookOline.bookOline.controller;
 
+import com.bookOline.bookOline.dto.UpdateBookDTO;
 import com.bookOline.bookOline.dto.UpdateCustomerDto;
 import com.bookOline.bookOline.entity.Book;
 import com.bookOline.bookOline.services.BookService;
@@ -39,7 +40,14 @@ public class BookController {
         return "Book deleted successfully with id: " + id;
     }
 
-
+  @PutMapping("/{id}")
+    public  String updateBook(
+          @PathVariable Integer id ,
+          @RequestBody UpdateBookDTO updateBookDTO
+          ){
+        bookService.updateBook(id,updateBookDTO);
+        return"Book Updated";
+  }
 
 
 

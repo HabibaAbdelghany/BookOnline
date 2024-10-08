@@ -1,5 +1,6 @@
 package com.bookOline.bookOline.controller;
 
+import com.bookOline.bookOline.dto.UpdateCategoryDto;
 import com.bookOline.bookOline.entity.Category;
 import com.bookOline.bookOline.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ public class CategoryController {
     public String deleteCategoryById(@PathVariable Integer id){
         categoryService.deleteCategoryById(id);
         return (id+" category deleted");
+    }
+    @PutMapping("/{id}")
+    public  String updateCategory(
+            @PathVariable Integer id,
+            @RequestBody UpdateCategoryDto updateCategoryDto
+            ){categoryService.updateCategory(id,updateCategoryDto);
+        return "Category updated";
     }
 
 }

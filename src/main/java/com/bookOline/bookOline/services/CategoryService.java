@@ -1,7 +1,8 @@
 package com.bookOline.bookOline.services;
 
-import com.bookOline.bookOline.entity.Book;
+import com.bookOline.bookOline.dto.UpdateCategoryDto;
 import com.bookOline.bookOline.entity.Category;
+import com.bookOline.bookOline.mapper.CategoryMapper;
 import com.bookOline.bookOline.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,10 @@ import java.util.Optional;
 @Service
 
 public class CategoryService
-{    @Autowired
+{ @Autowired
+
+private CategoryMapper categoryMapper;
+    @Autowired
     private CategoryRepository categoryRepository;
 
     public List<Category>findAllCategories(){
@@ -29,7 +33,7 @@ public class CategoryService
        return  categoryRepository.save(category);
     }
 
- public  void  deleteCategoryById(Integer id){
+    public  void  deleteCategoryById(Integer id){
         Optional<Category>categoryOptional=categoryRepository.findById(id);
         if (categoryOptional.isPresent()){
             categoryRepository.deleteById(id);
@@ -39,6 +43,10 @@ public class CategoryService
         }
 
  }
-
+    public  void  updateCategory(Integer id ,  UpdateCategoryDto updateCategoryDTO){
+        Category currentCategory =categoryRepository.findById(id).orElseThrow(()->new RuntimeException("category not found"));
+        categoryMapper.updateCategoryFromDto(updateCategoryDTO,currentCategory);
+        categoryRepository.save(currentCategory);
+    }
 
 }

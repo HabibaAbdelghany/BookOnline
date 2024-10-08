@@ -1,9 +1,9 @@
 package com.bookOline.bookOline.services;
 
-import com.bookOline.bookOline.entity.Book;
-import com.bookOline.bookOline.entity.Category;
-import com.bookOline.bookOline.entity.Customer;
-import com.bookOline.bookOline.entity.Order;
+import com.bookOline.bookOline.dto.UpdateBookOrderDto;
+import com.bookOline.bookOline.entity.*;
+import com.bookOline.bookOline.mapper.BookOrderMapper;
+import com.bookOline.bookOline.repository.BookOrderRepository;
 import com.bookOline.bookOline.repository.BookRepository;
 import com.bookOline.bookOline.repository.CustomerRepository;
 import com.bookOline.bookOline.repository.OrderRepository;
@@ -20,6 +20,10 @@ import java.util.stream.Collectors;
 @Service
 
 public class OrderService {
+    @Autowired
+    private BookOrderMapper bookOrderMapper;
+    @Autowired
+    BookOrderRepository bookOrderRepository;
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -69,10 +73,20 @@ public class OrderService {
 
     }
 
+    public  void  updateBookOrder (Integer id, UpdateBookOrderDto updateBookOrderDto){
+        BookOrder bookOrder= bookOrderRepository.findById(id).orElseThrow(()->new RuntimeException("this book not found"));
+        bookOrderMapper.updateBookOrder(updateBookOrderDto,bookOrder);
+        Book newBook = bookRepository.findById(updateBookOrderDto.getBookId())
+                .orElseThrow(() -> new RuntimeException("Book with id " + updateBookOrderDto.getBookId() + " not found."));
 
 
+        // Update the book reference in the BookOrder
+        bookOrder.setBook(newBook);
 
 
+        bookOrderRepository.save(bookOrder);
+
+    }
 
 
 
