@@ -33,7 +33,8 @@ public class OrdersController {
         return (id +"the order is deleted");
 }
 
-    @PutMapping("/{id}")
+
+    @PatchMapping("/{id}")
     public  String updateBookOrder(
             @PathVariable Integer id ,
             @RequestBody UpdateBookOrderDto updateBookOrderDto

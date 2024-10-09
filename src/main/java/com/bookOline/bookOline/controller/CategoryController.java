@@ -30,7 +30,7 @@ public class CategoryController {
         categoryService.deleteCategoryById(id);
         return (id+" category deleted");
     }
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public  String updateCategory(
             @PathVariable Integer id,
             @RequestBody UpdateCategoryDto updateCategoryDto

@@ -40,7 +40,7 @@ public class BookController {
         return "Book deleted successfully with id: " + id;
     }
 
-  @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public  String updateBook(
           @PathVariable Integer id ,
           @RequestBody UpdateBookDTO updateBookDTO
