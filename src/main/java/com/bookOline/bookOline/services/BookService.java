@@ -20,65 +20,57 @@ public class BookService {
     @Autowired
     private BookOrderMapper bookOrderMapper;
     @Autowired
-    private   BookMapper bookMapper;
+    private BookMapper bookMapper;
     @Autowired
     private BookRepository bookRepository;
     @Autowired
     BookOrderRepository bookOrderRepository;
 
 
-    public List<ResponseEntityBooksDto> getAllBooks(){
+    public List<ResponseEntityBooksDto> getAllBooks() {
         return bookRepository.findAll().stream()
-                .map(Book-> ResponseEntityBooksDto.builder()
-                                .title(Book.getTitle())
-                                .price(Book.getPrice())
+                .map(Book -> ResponseEntityBooksDto.builder()
+                        .title(Book.getTitle())
+                        .price(Book.getPrice())
                         .author(Book.getAuthor())
-                                .description(Book.getDescription())
-                                .id(Book.getId()).build()).collect(Collectors.toList());
+                        .description(Book.getDescription())
+                        .id(Book.getId()).build()).collect(Collectors.toList());
     }
 
 
-    public ResponseEntityBooksDto  getBookById(Integer id) {
-        return  bookRepository.findById(id)
-                .map(Book->ResponseEntityBooksDto
+    public ResponseEntityBooksDto getBookById(Integer id) {
+        return bookRepository.findById(id)
+                .map(Book -> ResponseEntityBooksDto
                         .builder()
                         .title(Book.getTitle())
                         .price(Book.getPrice())
                         .author(Book.getAuthor())
                         .description(Book.getDescription())
                         .id(Book.getId())
-                        .build() )
+                        .build())
                 .orElseThrow(() -> new RuntimeException("Customer not found for id: " + id));
 
 
     }
 
 
-
-    public void createBookDto(CreateBookDto createBookDto){
-     Book  book = BookMapper.instance.toEntity(createBookDto);
+    public void createBookDto(CreateBookDto createBookDto) {
+        Book book = BookMapper.instance.toEntity(createBookDto);
         bookRepository.save(book);
     }
+
     @Transactional
-    public void deleteBookById (Integer id){
-    bookOrderRepository.deleteByBookId(id);
-    bookRepository.deleteById(id);
-}
-    public  void updateBook (Integer id, UpdateBookDTO updateBookDTO){
-        Book currentBook =bookRepository.findById(id).orElseThrow(()->new RuntimeException("this book not found"));
-        bookMapper.updateBookFromDto(updateBookDTO,currentBook);
+    public void deleteBookById(Integer id) {
+        bookOrderRepository.deleteByBookId(id);
+        bookRepository.deleteById(id);
+    }
+
+    public void updateBook(Integer id, UpdateBookDTO updateBookDTO) {
+        Book currentBook = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("this book not found"));
+        bookMapper.updateBookFromDto(updateBookDTO, currentBook);
         bookRepository.save(currentBook);
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

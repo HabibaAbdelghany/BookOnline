@@ -12,8 +12,8 @@ import java.util.Date;
 @Builder
 @Data
 public class ResponseEntityOrdersDto {
-    private  Integer id;
-    private  Integer total_Price;
+    private Integer id;
+    private Integer total_Price;
     private Date date;
     private Integer customerId;
 }

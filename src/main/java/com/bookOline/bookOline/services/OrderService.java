@@ -115,7 +115,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
         currentOrder.setCustomer(customer);
         // Use the mapper to update the current order
-        orderMappper.UpdateOrder(updateOrderDto,currentOrder);
+        orderMappper.UpdateOrder(updateOrderDto, currentOrder);
 
         // Save the updated order back to the repository
         orderRepository.save(currentOrder);

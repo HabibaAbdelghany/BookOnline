@@ -9,6 +9,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface BookOrderMapper {
     UpdateBookOrderDto toDto(BookOrder bookOrder);
-     void  updateBookOrder(UpdateBookOrderDto updateBookOrderDto,@MappingTarget BookOrder bookOrder);
+
+    void updateBookOrder(UpdateBookOrderDto updateBookOrderDto, @MappingTarget BookOrder bookOrder);
 
 }

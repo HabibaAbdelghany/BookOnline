@@ -15,20 +15,24 @@ import java.util.List;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+
     @GetMapping
-    public List<ResponseEntityCategoriesDto>getAllCategories(){
+    public List<ResponseEntityCategoriesDto> getAllCategories() {
         return categoryService.findAllCategories();
     }
+
     @GetMapping("/{id}")
-     public ResponseEntityCategoriesDto getCategoryById(@PathVariable Integer id){
+    public ResponseEntityCategoriesDto getCategoryById(@PathVariable Integer id) {
         return categoryService.getCategoryById(id);
     }
+
     @PostMapping
-    public  String  createCategory(@RequestBody CreateCategoryDto createCategoryDto){
-               categoryService.createCategory(createCategoryDto);
-        return"Category Created";
+    public String createCategory(@RequestBody CreateCategoryDto createCategoryDto) {
+        categoryService.createCategory(createCategoryDto);
+        return "Category Created";
 
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategoryById(@PathVariable Integer id) {
         categoryService.deleteCategoryById(id);
@@ -37,10 +41,11 @@ public class CategoryController {
 
 
     @PatchMapping("/{id}")
-    public  String updateCategory(
+    public String updateCategory(
             @PathVariable Integer id,
             @RequestBody UpdateCategoryDto updateCategoryDto
-            ){categoryService.updateCategory(id,updateCategoryDto);
+    ) {
+        categoryService.updateCategory(id, updateCategoryDto);
         return "Category updated";
     }
 

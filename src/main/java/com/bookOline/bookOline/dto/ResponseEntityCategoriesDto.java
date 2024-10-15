@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class ResponseEntityCategoriesDto {
     private Integer id;
     private String description;
-    private String  name;
+    private String name;
 }

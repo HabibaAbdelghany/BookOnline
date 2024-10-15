@@ -13,7 +13,7 @@ import org.mapstruct.Mapper;
 public class UpdateBookDTO {
     private Integer price;
     private String description;
-    private String  author;
-    private  String title;
+    private String author;
+    private String title;
 
 }

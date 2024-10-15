@@ -8,9 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 public class BookOlineApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BookOlineApplication.class, args);
-	}}
+    public static void main(String[] args) {
+        SpringApplication.run(BookOlineApplication.class, args);
+    }
+}
 
 
 

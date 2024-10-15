@@ -11,7 +11,9 @@ public interface OrderMappper {
     Order toEntity(UpdateOrderDto updateOrderDto);
 
     Order toEntity(CreateOrderDto createOrderDto);
-    CreateOrderDto toDto (Order order);
+
+    CreateOrderDto toDto(Order order);
+
     void UpdateOrder(UpdateOrderDto updateOrderDto, @MappingTarget Order order);
 
 }

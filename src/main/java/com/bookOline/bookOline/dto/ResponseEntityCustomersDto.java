@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ResponseEntityCustomersDto {
     private Integer id;
-    private String name ;
+    private String name;
     private String email;
-    private String  address;
+    private String address;
 }

@@ -18,9 +18,9 @@ import java.util.Set;
 @Builder
 @Data
 public class CreateOrderDto {
-    private  Integer total_Price;
+    private Integer total_Price;
     private Date date;
     private Integer customer_id;
     //TO REPRESENT BOOK ID
-    private Set<Integer>setBookId;
+    private Set<Integer> setBookId;
 }

@@ -10,10 +10,13 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
- CustomerMapper instance= Mappers.getMapper(CustomerMapper.class);
-   UpdateCustomerDto toDTO(Customer customer);
+    CustomerMapper instance = Mappers.getMapper(CustomerMapper.class);
+
+    UpdateCustomerDto toDTO(Customer customer);
+
     Customer toEntity(CreateCustomerDto createCustomerDto);
-  //  Customer toEntity(UpdateCustomerDto updateCustomerDto );
-  //  Customer toEntity(ResponseEntityCustomersDto retrieveAllCustomers);
-    void  updateCustomerFromDto(UpdateCustomerDto dto , @MappingTarget Customer customer);
+
+    //  Customer toEntity(UpdateCustomerDto updateCustomerDto );
+    //  Customer toEntity(ResponseEntityCustomersDto retrieveAllCustomers);
+    void updateCustomerFromDto(UpdateCustomerDto dto, @MappingTarget Customer customer);
 }

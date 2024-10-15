@@ -15,31 +15,30 @@ import java.util.stream.Collectors;
 
 @Service
 
-public class CategoryService
-{ @Autowired
+public class CategoryService {
+    @Autowired
 
-private CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<ResponseEntityCategoriesDto>findAllCategories(){
+    public List<ResponseEntityCategoriesDto> findAllCategories() {
         return categoryRepository.findAll()
                 .stream()
-                .map(Category-> ResponseEntityCategoriesDto
-                .builder()
+                .map(Category -> ResponseEntityCategoriesDto
+                        .builder()
                         .id(Category.getId())
                         .description(Category.getDescription())
                         .name(Category.getName())
                         .build()
-        ).collect(Collectors.toList());
+                ).collect(Collectors.toList());
     }
 
 
-
-    public ResponseEntityCategoriesDto getCategoryById(Integer id){
-        return  categoryRepository.findById(id)
-                .map(Category->ResponseEntityCategoriesDto
-                .builder()
+    public ResponseEntityCategoriesDto getCategoryById(Integer id) {
+        return categoryRepository.findById(id)
+                .map(Category -> ResponseEntityCategoriesDto
+                        .builder()
                         .description(Category.getDescription())
                         .name(Category.getName())
                         .id(Category.getId())
@@ -47,24 +46,26 @@ private CategoryMapper categoryMapper;
 
 
     }
-    public  void createCategory(CreateCategoryDto createCategoryDto){
-        Category createdCategory =categoryMapper.toEntity(createCategoryDto);
-         categoryRepository.save(createdCategory);
+
+    public void createCategory(CreateCategoryDto createCategoryDto) {
+        Category createdCategory = categoryMapper.toEntity(createCategoryDto);
+        categoryRepository.save(createdCategory);
     }
 
-    public  void  deleteCategoryById(Integer id){
-        Optional<Category>categoryOptional=categoryRepository.findById(id);
-        if (categoryOptional.isPresent()){
+    public void deleteCategoryById(Integer id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
             categoryRepository.deleteById(id);
 
-        }else {
+        } else {
             throw new RuntimeException("category not exist");
         }
 
- }
-    public  void  updateCategory(Integer id ,  UpdateCategoryDto updateCategoryDTO){
-        Category currentCategory =categoryRepository.findById(id).orElseThrow(()->new RuntimeException("category not found"));
-        categoryMapper.updateCategoryFromDto(updateCategoryDTO,currentCategory);
+    }
+
+    public void updateCategory(Integer id, UpdateCategoryDto updateCategoryDTO) {
+        Category currentCategory = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("category not found"));
+        categoryMapper.updateCategoryFromDto(updateCategoryDTO, currentCategory);
         categoryRepository.save(currentCategory);
     }
 
