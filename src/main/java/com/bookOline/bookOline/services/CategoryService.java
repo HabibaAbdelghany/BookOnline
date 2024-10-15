@@ -1,5 +1,7 @@
 package com.bookOline.bookOline.services;
 
+import com.bookOline.bookOline.dto.CreateCategoryDto;
+import com.bookOline.bookOline.dto.ResponseEntityCategoriesDto;
 import com.bookOline.bookOline.dto.UpdateCategoryDto;
 import com.bookOline.bookOline.entity.Category;
 import com.bookOline.bookOline.mapper.CategoryMapper;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -19,18 +22,34 @@ private CategoryMapper categoryMapper;
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category>findAllCategories(){
-        return categoryRepository.findAll();
+    public List<ResponseEntityCategoriesDto>findAllCategories(){
+        return categoryRepository.findAll()
+                .stream()
+                .map(Category-> ResponseEntityCategoriesDto
+                .builder()
+                        .id(Category.getId())
+                        .description(Category.getDescription())
+                        .name(Category.getName())
+                        .build()
+        ).collect(Collectors.toList());
     }
 
-    public Category getCategoryById(Integer id){
-        Optional <Category> categoryOptional =categoryRepository.findById(id);
-        return categoryOptional.orElse(null);
+
+
+    public ResponseEntityCategoriesDto getCategoryById(Integer id){
+        return  categoryRepository.findById(id)
+                .map(Category->ResponseEntityCategoriesDto
+                .builder()
+                        .description(Category.getDescription())
+                        .name(Category.getName())
+                        .id(Category.getId())
+                        .build()).orElse(null);
 
 
     }
-    public  Category createCategory(Category category){
-       return  categoryRepository.save(category);
+    public  void createCategory(CreateCategoryDto createCategoryDto){
+        Category createdCategory =categoryMapper.toEntity(createCategoryDto);
+         categoryRepository.save(createdCategory);
     }
 
     public  void  deleteCategoryById(Integer id){

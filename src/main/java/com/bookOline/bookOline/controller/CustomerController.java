@@ -1,7 +1,8 @@
 package com.bookOline.bookOline.controller;
 
+import com.bookOline.bookOline.dto.CreateCustomerDto;
+import com.bookOline.bookOline.dto.ResponseEntityCustomersDto;
 import com.bookOline.bookOline.dto.UpdateCustomerDto;
-import com.bookOline.bookOline.entity.Customer;
 import com.bookOline.bookOline.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,17 +18,20 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
     @RequestMapping
-    public List<Customer> getAllCustomers(){
+
+
+    public List<ResponseEntityCustomersDto> getAllCustomers(){
         return customerService.findAllCustometrs();
     }
     @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable Integer id){
+    public ResponseEntityCustomersDto getCustomerById(@PathVariable Integer id){
         return customerService.getCustomerById(id);
     }
 
     @PostMapping
-    public Customer createCustomer (@RequestBody Customer customer){
-        return customerService.createCustomer(customer);
+    public String  createCustomer (@RequestBody CreateCustomerDto createCustomerDto){
+         customerService.createCustomer(createCustomerDto);
+         return  "Customer created";
     }
 
     @DeleteMapping("/{id}")

@@ -18,8 +18,8 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer price;
-    private String description;
+     private Integer price;
+   private String description;
     private String  author;
     private  String title;
 

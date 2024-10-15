@@ -1,12 +1,8 @@
 package com.bookOline.bookOline.controller;
 
-import com.bookOline.bookOline.dto.UpdateBookDTO;
-import com.bookOline.bookOline.dto.UpdateCustomerDto;
-import com.bookOline.bookOline.entity.Book;
+import com.bookOline.bookOline.dto.*;
 import com.bookOline.bookOline.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,19 +15,20 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    public List<Book> getAllBooks() {
+    public List<ResponseEntityBooksDto> getAllBooks() {
         return bookService.getAllBooks();
     }
 
 
     @GetMapping("/{id}")
-    public Book  getBookById(@PathVariable Integer id){
+    public ResponseEntityBooksDto  getBookById(@PathVariable Integer id){
         return bookService.getBookById(id);
     }
 
     @PostMapping
-     public  Book createBook(@RequestBody Book book){
-        return bookService.createBook(book);
+     public String createBook(@RequestBody CreateBookDto createBookDto){
+         bookService.createBookDto(createBookDto);
+         return  "Book created";
     }
 
     @DeleteMapping("/{id}")

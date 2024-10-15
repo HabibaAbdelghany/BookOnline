@@ -1,10 +1,7 @@
 package com.bookOline.bookOline.services;
 
-import com.bookOline.bookOline.dto.UpdateBookDTO;
-import com.bookOline.bookOline.dto.UpdateBookOrderDto;
-import com.bookOline.bookOline.dto.UpdateCustomerDto;
+import com.bookOline.bookOline.dto.*;
 import com.bookOline.bookOline.entity.Book;
-import com.bookOline.bookOline.entity.BookOrder;
 import com.bookOline.bookOline.mapper.BookMapper;
 import com.bookOline.bookOline.mapper.BookOrderMapper;
 import com.bookOline.bookOline.repository.BookOrderRepository;
@@ -15,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -30,18 +27,37 @@ public class BookService {
     BookOrderRepository bookOrderRepository;
 
 
-    public List<Book> getAllBooks(){
-        return bookRepository.findAll();
+    public List<ResponseEntityBooksDto> getAllBooks(){
+        return bookRepository.findAll().stream()
+                .map(Book-> ResponseEntityBooksDto.builder()
+                                .title(Book.getTitle())
+                                .price(Book.getPrice())
+                        .author(Book.getAuthor())
+                                .description(Book.getDescription())
+                                .id(Book.getId()).build()).collect(Collectors.toList());
     }
 
 
-    public Book getBookById(Integer id) {
-        Optional<Book> bookOptional = bookRepository.findById(id);
-        return bookOptional.orElse(null);
+    public ResponseEntityBooksDto  getBookById(Integer id) {
+        return  bookRepository.findById(id)
+                .map(Book->ResponseEntityBooksDto
+                        .builder()
+                        .title(Book.getTitle())
+                        .price(Book.getPrice())
+                        .author(Book.getAuthor())
+                        .description(Book.getDescription())
+                        .id(Book.getId())
+                        .build() )
+                .orElseThrow(() -> new RuntimeException("Customer not found for id: " + id));
+
+
     }
 
-    public Book createBook (Book book){
-        return bookRepository.save(book);
+
+
+    public void createBookDto(CreateBookDto createBookDto){
+     Book  book = BookMapper.instance.toEntity(createBookDto);
+        bookRepository.save(book);
     }
     @Transactional
     public void deleteBookById (Integer id){
