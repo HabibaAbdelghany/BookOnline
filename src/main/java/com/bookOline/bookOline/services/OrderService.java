@@ -9,7 +9,7 @@ import com.bookOline.bookOline.repository.BookRepository;
 import com.bookOline.bookOline.repository.CustomerRepository;
 import com.bookOline.bookOline.repository.OrderRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -19,20 +19,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-
+@RequiredArgsConstructor
 public class OrderService {
-    @Autowired
     private OrderMappper orderMappper;
-    @Autowired
+
     private BookOrderMapper bookOrderMapper;
-    @Autowired
-    BookOrderRepository bookOrderRepository;
-    @Autowired
+    private   BookOrderRepository bookOrderRepository;
+
     private OrderRepository orderRepository;
-    @Autowired
+
     private BookRepository bookRepository;
 
-    @Autowired
+
     private CustomerRepository customerRepository;
 
     public List<ResponseEntityOrdersDto> findAllOrders() {
@@ -59,7 +57,7 @@ public class OrderService {
     }
 
     @Transactional
-    public void createOrder(CreateOrderDto createOrderDto) {
+    public CreateOrderDto createOrder(CreateOrderDto createOrderDto) {
 
         Customer customer = customerRepository.findById(createOrderDto.getCustomer_id())
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -77,7 +75,7 @@ public class OrderService {
         // Save the order to the repository
         orderRepository.save(order);
 
-
+return createOrderDto;
     }
 
     public void deleteOrderById(Integer id) {
@@ -94,7 +92,7 @@ public class OrderService {
 
     public void updateBookOrder(Integer id, UpdateBookOrderDto updateBookOrderDto) {
         BookOrder bookOrder = bookOrderRepository.findById(id).orElseThrow(() -> new RuntimeException("this book not found"));
-        bookOrderMapper.updateBookOrder(updateBookOrderDto, bookOrder);
+
         Book newBook = bookRepository.findById(updateBookOrderDto.getBookId())
                 .orElseThrow(() -> new RuntimeException("Book with id " + updateBookOrderDto.getBookId() + " not found."));
 
@@ -115,7 +113,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
         currentOrder.setCustomer(customer);
         // Use the mapper to update the current order
-        orderMappper.UpdateOrder(updateOrderDto, currentOrder);
+        orderMappper.UpdateOrder(updateOrderDto,currentOrder);
 
         // Save the updated order back to the repository
         orderRepository.save(currentOrder);

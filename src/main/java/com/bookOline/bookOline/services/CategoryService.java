@@ -4,6 +4,7 @@ import com.bookOline.bookOline.dto.CreateCategoryDto;
 import com.bookOline.bookOline.dto.ResponseEntityCategoriesDto;
 import com.bookOline.bookOline.dto.UpdateCategoryDto;
 import com.bookOline.bookOline.entity.Category;
+import com.bookOline.bookOline.exception.NotFoundException;
 import com.bookOline.bookOline.mapper.CategoryMapper;
 import com.bookOline.bookOline.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +43,15 @@ public class CategoryService {
                         .description(Category.getDescription())
                         .name(Category.getName())
                         .id(Category.getId())
-                        .build()).orElse(null);
+                        .build()).orElseThrow(()-> new NotFoundException(("Category not found for id:" +id)));
 
 
     }
 
-    public void createCategory(CreateCategoryDto createCategoryDto) {
+    public CreateCategoryDto createCategory(CreateCategoryDto createCategoryDto) {
         Category createdCategory = categoryMapper.toEntity(createCategoryDto);
         categoryRepository.save(createdCategory);
+        return  createCategoryDto;
     }
 
     public void deleteCategoryById(Integer id) {

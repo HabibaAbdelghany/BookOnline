@@ -2,6 +2,7 @@ package com.bookOline.bookOline.services;
 
 import com.bookOline.bookOline.dto.*;
 import com.bookOline.bookOline.entity.Book;
+import com.bookOline.bookOline.exception.NotFoundException;
 import com.bookOline.bookOline.mapper.BookMapper;
 import com.bookOline.bookOline.mapper.BookOrderMapper;
 import com.bookOline.bookOline.repository.BookOrderRepository;
@@ -48,15 +49,16 @@ public class BookService {
                         .description(Book.getDescription())
                         .id(Book.getId())
                         .build())
-                .orElseThrow(() -> new RuntimeException("Customer not found for id: " + id));
+                .orElseThrow(() -> new NotFoundException("Book not found for id: " + id));
 
 
     }
 
 
-    public void createBookDto(CreateBookDto createBookDto) {
+    public CreateBookDto createBookDto(CreateBookDto createBookDto) {
         Book book = BookMapper.instance.toEntity(createBookDto);
         bookRepository.save(book);
+        return createBookDto;
     }
 
     @Transactional

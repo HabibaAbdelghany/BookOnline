@@ -7,20 +7,24 @@ import com.bookOline.bookOline.entity.Customer;
 import com.bookOline.bookOline.mapper.CustomerMapper;
 import com.bookOline.bookOline.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 
-public class CustomerService {
+public class CustomerService implements  UserDetailsService  {
     @Autowired
     private CustomerMapper customerMapper;
     @Autowired
     private CustomerRepository customerRepository;
-
 
     /*.map(customer -> RetrieveAllCustomers.builder()...build()):
 The map method takes a Function as an argument, which applies a transformation to each element in the stream.
@@ -51,9 +55,10 @@ Finally, .build() creates the RetrieveAllCustomers object.*/
 
     }
 
-    public void createCustomer(CreateCustomerDto createCustomerDto) {
+    public CreateCustomerDto createCustomer(CreateCustomerDto createCustomerDto) {
         Customer createdCustomer = customerMapper.toEntity(createCustomerDto);
         customerRepository.save(createdCustomer);
+        return createCustomerDto;
     }
 
     public UpdateCustomerDto updateCustomer(Integer id, UpdateCustomerDto updateCustomerDTO) {
@@ -75,5 +80,10 @@ Finally, .build() creates the RetrieveAllCustomers object.*/
             throw new RuntimeException(id + "this id not exist");
         }
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }
